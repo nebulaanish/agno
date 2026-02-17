@@ -45,6 +45,7 @@ viz_agent_full = Agent(
             enable_create_scatter_plot=True,
             enable_create_pie_chart=True,
             enable_create_histogram=True,
+            enable_create_multi_line_chart=True,
             output_dir="business_charts",
         )
     ],
