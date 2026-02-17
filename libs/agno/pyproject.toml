@@ -1,24 +1,19 @@
 [project]
 name = "agno"
-version = "2.4.3"
-description = "Agno: a lightweight library for building Multi-Agent Systems"
+version = "2.5.2"
+description = "The programming language for agentic software."
 requires-python = ">=3.7,<4"
 readme = "README.md"
-license-files = ["LICENSE"]
+license = { file = "LICENSE" }
 authors = [
   {name = "Ashpreet Bedi", email = "ashpreet@agno.com"}
 ]
 keywords = [
-  "agent",
-  "reasoning",
-  "llm",
-  "large-language-model",
-  "framework",
+  "agent"
 ]
 classifiers = [
-    "Development Status :: 5 - Production/Stable",
     "Intended Audience :: Developers",
-    "License :: OSI Approved :: Mozilla Public License 2.0 (MPL 2.0)",
+    "Development Status :: 5 - Production/Stable",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.7",
     "Programming Language :: Python :: 3.8",
@@ -27,6 +22,7 @@ classifiers = [
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Operating System :: OS Independent",
+    "License :: OSI Approved :: Apache Software License",
     "Topic :: Scientific/Engineering :: Artificial Intelligence",
 ]
 
@@ -64,9 +60,11 @@ dev = [
   "openai",
   "fakeredis",
   "xlwt",
+  "types-greenlet",
 ]
 
-os = ["fastapi", "uvicorn", "PyJWT"]
+os = ["fastapi[standard]", "uvicorn", "sqlalchemy", "PyJWT"]
+scheduler = ["croniter>=1.3", "pytz>=2023.3"]
 
 # Dependencies for Telemetry
 opentelemetry = ["opentelemetry-sdk", "opentelemetry-exporter-otlp"]
@@ -96,6 +94,9 @@ portkey = ["portkey-ai"]
 # Dependencies for Token Counting
 tokenizers = ["tiktoken", "tokenizers"]
 
+# Dependencies for Workflow Expression Evaluation
+cel = ["cel-python"]
+
 # Dependencies for Tools
 agentql = ["agentql"]
 apify = ["apify-client"]
@@ -109,6 +110,7 @@ duckdb = ["duckdb"]
 elevenlabs = ["elevenlabs"]
 evm = ["web3"]
 exa = ["exa_py"]
+seltz = ["seltz"]
 fal = ["fal_client"]
 firecrawl = ["firecrawl-py==3.4.0"]
 tavily = ["tavily-python"]
@@ -154,7 +156,7 @@ mysql = ["pymysql", "asyncmy"]
 # Dependencies for Vector databases
 pgvector = ["pgvector"]
 chromadb = ["chromadb"]
-lancedb = ["lancedb==0.24.0", "tantivy"]
+lancedb = ["lancedb>=0.26.0", "tantivy"]
 pylance = ["pylance"]
 qdrant = ["qdrant-client"]
 couchbase = ["couchbase"]
@@ -175,7 +177,7 @@ pptx = ["python-pptx"]
 text = ["aiofiles"]
 csv = ["aiofiles"]
 excel = ["openpyxl", "xlrd"]
-markdown = ["unstructured", "markdown", "aiofiles"]
+markdown = ["unstructured<0.18.31", "markdown", "aiofiles"]
 chonkie = ["chonkie[semantic]", "chonkie[code]", "chonkie"]
 
 # Dependencies for AG-UI integration
@@ -227,6 +229,7 @@ tools = [
   "agno[arxiv]",
   # "agno[brave]",  # It clashes with other dependencies
   "agno[exa]",
+  "agno[seltz]",
   "agno[cartesia]",
   "agno[ddg]",
   "agno[duckdb]",
@@ -348,9 +351,12 @@ integration-tests = [
 # Dependencies for demo application
 demo = [
     "agno[dev]",
+    "agno[scheduler]",
     "anthropic",
     "chromadb",
     "ddgs",
+    "duckdb",
+    "exa-py",
     "fastapi[standard]",
     "google-genai",
     "matplotlib",
@@ -447,6 +453,7 @@ module = [
   "e2b_code_interpreter.*",
   "eth_account.*",
   "exa_py.*",
+  "seltz.*",
   "fastapi.*",
   "fastembed.*",
   "fastmcp.*",
@@ -553,6 +560,7 @@ module = [
   "reportlab.*",
   "surrealdb.*",
   "trafilatura.*",
-  "xlrd.*"
+  "xlrd.*",
+  "celpy.*"
 ]
 ignore_missing_imports = true
